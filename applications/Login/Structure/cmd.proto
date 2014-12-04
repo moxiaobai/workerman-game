@@ -1,0 +1,6 @@
+message cmd {
+	required string obj     = 1;
+	required string method  = 2;
+	repeated string params  = 3;
+}
+

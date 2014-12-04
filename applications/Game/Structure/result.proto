@@ -1,0 +1,6 @@
+message result {
+	required  int32 code    = 1;
+	required string msg     = 2;
+	repeated string data    = 3;
+}
+

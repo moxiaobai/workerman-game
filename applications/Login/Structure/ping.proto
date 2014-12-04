@@ -1,0 +1,4 @@
+message ping {
+	required string type     = 1;
+}
+

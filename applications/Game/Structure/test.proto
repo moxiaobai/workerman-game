@@ -1,0 +1,5 @@
+message test {
+	required string cmd  = 1;
+	repeated string mid  = 2;
+}
+

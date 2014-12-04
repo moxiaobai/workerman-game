@@ -1,0 +1,7 @@
+message Member {
+	optional int32  mid        = 1;
+	optional string nickname   = 2;
+	optional string email      = 3;
+	optional int32  regtime    = 4;
+}
+
