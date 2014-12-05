@@ -39,7 +39,6 @@ class Login {
             return 4 - $recv_length;
         }
 
-
         // 读取首部4个字节，网络字节序int
         $buffer_data = unpack('Ntotal_length', $buffer);
         // 得到这次数据的整体长度（字节）
@@ -76,9 +75,11 @@ class Login {
         $method  = $cmd->getMethod();
         $params  = $cmd->getParams();
 
+        //统计数据
         $class = substr($obj, 8);
         StatisticClient::tick($class, $method);
         try {
+            //处理业务逻辑
             $instance = new $obj();
             $buffer = $instance->$method($params);
 
@@ -95,7 +96,6 @@ class Login {
             StatisticClient::report($class, $method, 0, $ex->getCode(), $ex->getMessage());
         }
 
-        echo 'Login' . PHP_EOL;
         return Gateway::sendToCurrentClient($buffer);
 
     }

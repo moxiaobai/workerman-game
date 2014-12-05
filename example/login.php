@@ -16,7 +16,7 @@ stream_set_blocking($socket, true);
 
 $cmd = new Cmd();
 $cmd->setObj('\Server\Member');
-$cmd->setMethod('getData');
+$cmd->setMethod('authLogin');
 $cmd->appendParams('moxiaobai');
 $cmd->appendParams('rxg622124');
 

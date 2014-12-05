@@ -10,7 +10,6 @@ namespace Server;
 
 use \Lib\Store;
 use \Lib\Db;
-use \Structure\PbMember;
 use \Structure\PbResult;
 
 
@@ -18,7 +17,6 @@ class Member {
 
     private $_store;
     private $_db;
-    private $_pbMember;
     private $_pbResult;
 
     private $_result = array(
@@ -32,8 +30,6 @@ class Member {
     public function __Construct() {
         $this->_store    = Store::instance('game');
         $this->_db       = Db::instance('passport');
-
-        $this->_pbMember = new PbMember();
         $this->_pbResult = new PbResult();
     }
 
@@ -67,7 +63,8 @@ class Member {
      * @param  array $params
      * @return mixed
      */
-    public function authLogin($params) {
+    public function authLogin($params)
+    {
         $username = $params[0];
         $password = md5(md5($params[1]));
 
@@ -75,12 +72,12 @@ class Member {
                 WHERE m_nickname='{$username}' and m_password = '{$password}'
                 limit 1";
         $result = $this->_db->row($sql);
-        if($result) {
+        if ($result) {
             $tip = $this->_result['SUCCESS'];
             $this->_pbResult->setCode($tip['code']);
             $this->_pbResult->setMsg($tip['msg']);
 
-            foreach($result as $val) {
+            foreach ($result as $val) {
                 $this->_pbResult->appendData($val);
             }
         } else {
@@ -90,20 +87,6 @@ class Member {
         }
         $buffer = $this->formatBuffer($this->_pbResult);
         return $buffer;
-    }
-
-    public function getData($params) {
-        $tip = $this->_result['SUCCESS'];
-        $this->_pbResult->setCode($tip['code']);
-        $this->_pbResult->setMsg($tip['msg']);
-
-        $this->_pbResult->appendData('莫小白');
-        $this->_pbResult->appendData('男');
-        $this->_pbResult->appendData('27');
-        $this->_pbResult->appendData('175');
-        $buffer = $this->formatBuffer($this->_pbResult);
-        return $buffer;
-
     }
 
     /**
