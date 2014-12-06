@@ -33,6 +33,12 @@ class Gateway extends Man\Core\SocketWorker
      * @var string
      */
     protected $lanIp = '127.0.0.1';
+
+    /**
+     * gateWay地址
+     * @var string
+     */
+    protected $gatewayAddress = 'GLOBAL_GAME_GATEWAY_ADDRESS';
     
     /**
      * 内部通信端口
@@ -116,28 +122,7 @@ class Gateway extends Man\Core\SocketWorker
     public function dealInput($recv_buffer)
     {
         // 处理粘包
-        // 已经收到的长度（字节）
-//        $recv_length = strlen($buffer);
-//
-//        // 接收到的数据长度不够？
-//        if($recv_length<4)
-//        {
-//            return 4 - $recv_length;
-//        }
-//
-//        // 读取首部4个字节，网络字节序int
-//        $buffer_data = unpack('Ntotal_length', $buffer);
-//        // 得到这次数据的整体长度（字节）
-//        $total_length = $buffer_data['total_length'];
-//        if($total_length>$recv_length)
-//        {
-//            // 还有这么多字节要接收
-//            return $total_length - $recv_length;
-//        }
-        // 接收完毕
-        return 0;
-
-        return JsonProtocol::check($recv_buffer);
+       return Game::onGatewayMessage($recv_buffer);
     }
     
     /**
@@ -340,7 +325,7 @@ class Gateway extends Man\Core\SocketWorker
         // 这里使用了信号量只能实现单机互斥，分布式互斥需要借助于memcached incr cas 或者其他分布式存储
         \Man\Core\Lib\Mutex::get();
         // key
-        $key = 'GLOBAL_GATEWAY_ADDRESS';
+        $key = $this->gatewayAddress;
         // 获取实例
         try 
         {
@@ -391,7 +376,7 @@ class Gateway extends Man\Core\SocketWorker
         // 这里使用了信号量只能实现单机互斥，分布式互斥需要借助于memcached incr cas或者其他分布式存储
         \Man\Core\Lib\Mutex::get();
         // key
-        $key = 'GLOBAL_GATEWAY_ADDRESS';
+        $key = $this->gatewayAddress;
         // 获取存储实例
         try 
         {

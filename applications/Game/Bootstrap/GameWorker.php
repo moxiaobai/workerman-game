@@ -31,6 +31,12 @@ class GameWorker extends Man\Core\SocketWorker
     protected $gatewayConnections = array();
 
     /**
+     * gateWay地址
+     * @var string
+     */
+    protected $gatewayAddress = 'GLOBAL_GAME_GATEWAY_ADDRESS';
+
+    /**
      * 连不上的gateway地址
      * ['ip:port' => retry_count, 'ip:port' => retry_count, ...]
      * @var array
@@ -154,7 +160,7 @@ class GameWorker extends Man\Core\SocketWorker
      */
     public function checkGatewayConnections()
     {
-        $key = 'GLOBAL_GATEWAY_ADDRESS';
+        $key = $this->gatewayAddress;
         $addresses_list = Store::instance('gateway')->get($key);
         if(empty($addresses_list))
         {

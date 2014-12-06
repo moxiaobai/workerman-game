@@ -22,6 +22,12 @@ class LoginWorker extends Man\Core\SocketWorker
      * @var array
      */
     protected $gatewayConnections = array();
+
+    /**
+     * gateWay地址
+     * @var string
+     */
+    protected $gatewayAddress = 'GLOBAL_LOGIN_GATEWAY_ADDRESS';
     
     /**
      * 连不上的gateway地址
@@ -147,7 +153,7 @@ class LoginWorker extends Man\Core\SocketWorker
      */
     public function checkGatewayConnections()
     {
-        $key = 'GLOBAL_GATEWAY_ADDRESS';
+        $key = $this->gatewayAddress;
         $addresses_list = Store::instance('gateway')->get($key);
         if(empty($addresses_list))
         {

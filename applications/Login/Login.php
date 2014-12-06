@@ -95,7 +95,7 @@ class Login {
 
             StatisticClient::report($class, $method, 0, $ex->getCode(), $ex->getMessage());
         }
-
+        echo 'Login_Woker' . PHP_EOL;
         return Gateway::sendToCurrentClient($buffer);
 
     }

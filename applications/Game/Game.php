@@ -100,7 +100,7 @@ class Game {
             StatisticClient::report($class, $method, 0, $ex->getCode(), $ex->getMessage());
         }
 
-        echo 'Game' . PHP_EOL;
+        echo 'Game_Worker' . PHP_EOL;
 
         return Gateway::sendToCurrentClient($buffer);
 
