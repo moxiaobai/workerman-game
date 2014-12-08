@@ -17,15 +17,6 @@ use \Server\Member;
 class Login {
 
     /**
-     * 当网关有客户端链接上来时触发，每个客户端只触发一次，如果不许要任何操作可以不实现此方法
-     * 这里当客户端一连上来就给客户端发送输入名字的提示
-     */
-    public static function onGatewayConnect($client_id)
-    {
-        //Gateway::sendToCurrentClient(TextProtocol::encode("type in your name:"));
-    }
-
-    /**
      * 网关有消息时，判断消息是否完整
      */
     public static function onGatewayMessage($buffer)
