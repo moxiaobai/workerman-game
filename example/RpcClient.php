@@ -272,30 +272,26 @@ function create_JsonProtocol()
 // ==以下调用示例==
 // 服务端列表
 $address_array = array(
-        'tcp://127.0.0.1:2015',
-        );
+    'tcp://127.0.0.1:2015',
+);
 // 配置服务端列表
 RpcClient::config($address_array);
 
-$serverClient = RpcClient::instance('Zone');
-// ==同步调用==
-//$ret_sync = $user_client->getInfoByUid($uid);
-$result = $serverClient->getServerList();
-var_dump($result);
+//$serverClient = RpcClient::instance('Zone');
 
-// ==异步调用==
-// 异步发送数据
-//$user_client->asend_getInfoByUid($uid);
-//$user_client->asend_getEmail($uid);
+//同步调用数据
+//$result = $serverClient->getServerList();
 
-/**
- * 这里是其它的业务代码
- * ..............................................
- **/
+//// ==异步调用==
+//$serverClient->asend_getServerList();
+//$result = $serverClient->arecv_getServerList();
+//var_dump($result);
 
-// 异步接收数据
-//$ret_async1 = $user_client->arecv_getEmail($uid);
-//$ret_async2 = $user_client->arecv_getInfoByUid($uid);
+$onlineClient = RpcClient::instance('Online');
+$result = $onlineClient->getOnline(1);
+echo '<pre>';
+print_r($result);
+echo '</pre>';
 
-// 打印结果
-//var_dump($ret_sync, $ret_async1, $ret_async2);
+
+

@@ -8,21 +8,24 @@
  */
 
 use \Lib\Db;
-use \Structure\PbResult;
 
 class Online {
 
-    private $_db;
-    private $_pbResult;
+    /**
+     * 获取在线数据
+     * @param null $sid 服务器ID
+     * @return mixed
+     */
+    public static function getOnline($sid=null) {
+        if(is_null($sid)) {
+            $where = 'WHERE 1=1';
+        } else {
+            $where = "WHERE s_id = $sid";
+        }
 
-    public function __Construct() {
-        $this->_db = Db::instance('passport');
-        $this->_pbResult = new PbResult();
-    }
-
-    public function addUserOnline() {}
-
-    public function deleteUserOnline() {
-
+        $db       = Db::instance('passport');
+        $sql    = "SELECT COUNT(*) AS totle FROM `t_online` {$where}";
+        $result = $db->single($sql);
+        return $result;
     }
 }

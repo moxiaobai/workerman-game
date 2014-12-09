@@ -15,10 +15,23 @@ if(!$socket)
 stream_set_blocking($socket, true);
 
 $cmd = new Cmd();
-$cmd->setObj('\Server\Member');
-$cmd->setMethod('authLogin');
-$cmd->appendParams('moxiaobai');
-$cmd->appendParams('rxg622124');
+
+//登录
+//$cmd->setObj('\Server\Member');
+//$cmd->setMethod('authLogin');
+//$cmd->appendParams('moxiaobai');
+//$cmd->appendParams('rxg622124');
+
+//在线数据
+$cmd->setObj('\Server\Online');
+//$cmd->setMethod('addUserOnline');
+//$cmd->appendParams('1');
+//$cmd->appendParams('爱琴海');
+//$cmd->appendParams('23392');
+
+$cmd->setMethod('deleteUserOnline');
+$cmd->appendParams('1');
+$cmd->appendParams('13392');
 
 $buffer = $cmd->SerializeToString();
 $total_length = 4 + strlen($buffer);

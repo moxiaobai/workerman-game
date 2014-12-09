@@ -9,17 +9,13 @@ namespace Server;
  */
 
 use \Lib\Store;
-use \Lib\Db;
-use \Structure\PbResult;
+use \Server\Model;
 
-
-class Member {
+class Member extends Model {
 
     private $_store;
-    private $_db;
-    private $_pbResult;
 
-    private $_result = array(
+    protected $_result = array(
         'SUCCESS'                  =>  array('code'=>1,    'msg' => 'successful'),
         'NO_DATA_EXIST'            =>  array('code'=>100,  'msg' => 'No data exist'),
         'ERROR_USERNAME'           =>  array('code'=>400,  'msg' => '用户名为空'),
@@ -29,8 +25,8 @@ class Member {
 
     public function __Construct() {
         $this->_store    = Store::instance('game');
-        $this->_db       = Db::instance('passport');
-        $this->_pbResult = new PbResult();
+
+        parent::__Construct();
     }
 
     /**
@@ -74,17 +70,15 @@ class Member {
         $result = $this->_db->row($sql);
         if ($result) {
             $tip = $this->_result['SUCCESS'];
-            $this->_pbResult->setCode($tip['code']);
-            $this->_pbResult->setMsg($tip['msg']);
 
             foreach ($result as $val) {
                 $this->_pbResult->appendData($val);
             }
         } else {
             $tip = $this->_result['ERROR_USERNAME_PASSWORD'];
-            $this->_pbResult->setCode($tip['code']);
-            $this->_pbResult->setMsg($tip['msg']);
         }
+        $this->_pbResult->setCode($tip['code']);
+        $this->_pbResult->setMsg($tip['msg']);
         $buffer = $this->formatBuffer($this->_pbResult);
         return $buffer;
     }
@@ -133,18 +127,5 @@ class Member {
 
         return $result;
 
-    }
-
-    /**
-     * 格式化数据
-     * @param $pbObj
-     * @return string
-     */
-    private function formatBuffer($pbObj) {
-        $buffer = $pbObj->SerializeToString();
-        $total_length = 4 + strlen($buffer);
-        $buffer = pack('N', $total_length) . $buffer;
-
-        return $buffer;
     }
 }

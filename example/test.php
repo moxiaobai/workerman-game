@@ -6,6 +6,9 @@
  * Time: 14:08
  */
 
+echo time();
+exit;
+
 echo strlen("\n");
 exit;
 
