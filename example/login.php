@@ -24,14 +24,14 @@ $cmd = new Cmd();
 
 //在线数据
 $cmd->setObj('\Server\Online');
-//$cmd->setMethod('addUserOnline');
-//$cmd->appendParams('1');
-//$cmd->appendParams('爱琴海');
-//$cmd->appendParams('23392');
-
-$cmd->setMethod('deleteUserOnline');
+$cmd->setMethod('addUserOnline');
 $cmd->appendParams('1');
+$cmd->appendParams('爱琴海');
 $cmd->appendParams('13392');
+
+//$cmd->setMethod('deleteUserOnline');
+//$cmd->appendParams('1');
+//$cmd->appendParams('13392');
 
 $buffer = $cmd->SerializeToString();
 $total_length = 4 + strlen($buffer);
