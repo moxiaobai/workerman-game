@@ -38,4 +38,8 @@ class Zone {
 
         return $result;
     }
+
+    public static function getData($a, $b) {
+        return  $a+$b;
+    }
 }

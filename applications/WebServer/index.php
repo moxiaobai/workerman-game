@@ -34,14 +34,15 @@ if(count($tmpData) != 0 ) {
 
 //获取请求的参数
 $tmpParams = explode('&', $query);
+
 $params    = array();
 foreach($tmpParams as $key=>$value) {
     if(trim($value) == '') {
         unset($tmpParams[$key]);
+    } else {
+    	$value = explode('=', $value);
+    	$params[$value[0]] = $value[1];
     }
-
-    $value = explode('=', $value);
-    $params[$value[0]] = $value[1];
 }
 
 //todo 数据验证， 身份验证
