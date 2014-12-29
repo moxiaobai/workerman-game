@@ -38,12 +38,4 @@ class Zone {
 
         return $result;
     }
-
-    public static function hello() {
-        return 'hello word';
-    }
-
-    public static function getData($a, $b) {
-        return  $a+$b;
-    }
 }

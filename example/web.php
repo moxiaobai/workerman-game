@@ -9,7 +9,7 @@
 define('AUTH_KEY', '^@@!@$17611');
 
 $class      = 'Zone';
-$method     = 'getData';
+$method     = 'hello';
 $a          = 1;
 $b          = 2;
 $authKey    = md5(AUTH_KEY . $class . $method . $a . $b);
